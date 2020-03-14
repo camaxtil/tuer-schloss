@@ -16,7 +16,9 @@
 
 //Bitte Fachnummer und RFID code eintragen
 int Fachnummer = 2;
-String Code_Schueler = ""; // Schüler name schreibart Vorname Nachname
+String Code_Schueler = "";
+String Code_Admin = "";
+String Code_Lehrer = "";
 
 char ssid[] = "";
 char pass[] = "";
@@ -24,8 +26,7 @@ char auth[] = "I-TFLto2vdWemRFfWsphbpzdvbxorjsy";
 char daysOfTheWeek[7][12] = {"Sonntag","Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
 String vorname = "";
 String nachname = "";
-String Code_Admin = "luca vehling";
-String Code_Lehrer = "holger hesse";
+
 String Code = "";
 boolean firstrun_bool = true;
 boolean entsperren_erlaubt = true;
