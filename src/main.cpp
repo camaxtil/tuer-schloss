@@ -18,11 +18,8 @@
 int Fachnummer = 2;
 String Code_Schueler = ""; // Schüler name schreibart Vorname Nachname
 
-// FINGER WEG
-//char ssid[] = "R15";
-//char pass[] = "c184998772d4";
-char ssid[] = "FRITZ!Box 7530 KM";
-char pass[] = "46998981337734535883";
+char ssid[] = "";
+char pass[] = "";
 char auth[] = "I-TFLto2vdWemRFfWsphbpzdvbxorjsy";
 char daysOfTheWeek[7][12] = {"Sonntag","Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
 String vorname = "";
