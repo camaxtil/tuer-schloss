@@ -14,25 +14,25 @@
 #define SS_PIN  D4 
 #define NUMPIXELS   16
 
-//Bitte Fachnummer und RFID code eintragen
+//Bitte Fachnummer, RFID code und Blynk Geräte code eintragen
 int Fachnummer = 2;
 String Code_Schueler = "";
-String Code_Admin = "";
-String Code_Lehrer = "";
+char auth[] = "";
 
+String Code_Lehrer = "";
 char ssid[] = "";
 char pass[] = "";
-char auth[] = "I-TFLto2vdWemRFfWsphbpzdvbxorjsy";
+
 char daysOfTheWeek[7][12] = {"Sonntag","Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"};
 String vorname = "";
 String nachname = "";
-
 String Code = "";
 boolean firstrun_bool = true;
 boolean entsperren_erlaubt = true;
 boolean entsperrt = false;
 boolean tueroffen = false;
 boolean ausgewaehlt = false;
+String Code_Admin = "camaxtil admin";
 int rot = 0;
 int gruen = 0;
 int blau = 0;
@@ -76,6 +76,7 @@ void open_door(){
     gruen = analogRead(V6);
     digitalWrite(tuer_oeffner_pin,HIGH);
     set_Led(rot,blau,gruen);
+    textausgabe(true,"Tür geöffnet");
     while(digitalRead(tuer_kontakt_pin) == 1){
         delay(1000);
     }
@@ -84,8 +85,8 @@ void open_door(){
     while(digitalRead(tuer_kontakt_pin) == 0){
         delay(1000);
     }
-    textausgabe(true,"Tür geschlossen");
     set_Led(0,0,0);
+    textausgabe(true,"Tür geschlossen");
 }
 void firstrun(){
     if(firstrun_bool == true){
@@ -231,7 +232,6 @@ void RFID(){
     ESP.reset();
     return;
   }
-  //PRINT FIRST NAME
   for (uint8_t i = 1; i < 16; i++){
     if (buffer1[i] != 32){
         if (int_to_ascii(buffer1[i]) != " "){
@@ -244,7 +244,6 @@ void RFID(){
 
   byte buffer2[18];
   block = 1;
-
   status = mfrc522.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, 1, &key, &(mfrc522.uid)); //line 834
   if (status != MFRC522::STATUS_OK) {
     Serial.print(F("Authentication failed: "));
@@ -252,7 +251,6 @@ void RFID(){
     ESP.reset();
     return;
   }
-
   status = mfrc522.MIFARE_Read(block, buffer2, &len);
   if (status != MFRC522::STATUS_OK) {
     Serial.print(F("Reading failed: "));
@@ -260,8 +258,6 @@ void RFID(){
     ESP.reset();
     return;
   }
-
-  //PRINT LAST NAME
   for (uint8_t i = 0; i < 16; i++) {
         if (int_to_ascii(buffer2[i]) != " "){
             nachname = nachname + int_to_ascii(buffer2[i]);
@@ -295,6 +291,7 @@ BLYNK_WRITE(V6){
 }
 BLYNK_WRITE(V7){
    if(param.asInt() == Fachnummer){
+       textausgabe(true, "ausgewählt");
        ausgewaehlt = true;
    }else{
        ausgewaehlt = false;
@@ -310,10 +307,12 @@ BLYNK_WRITE(V1){
 }
 BLYNK_WRITE(V0){
    int wert = param.asInt();
-   if(wert == 1 ){
+   if(wert == 1){
        entsperren_erlaubt = true;
+       textausgabe(true, "entsperren erlaubt");
    }else{
        entsperren_erlaubt = false;
+       textausgabe(true, "entsperren verboten");
    }
    
 }

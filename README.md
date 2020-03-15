@@ -9,5 +9,6 @@
     überprüfen ob Karte richtig bespielt wurde
 
 3. Code bei Code_Schueler in main.cpp eintragen
-4. WLAN daten eintragen
+4. WLAN daten in main.cpp eintragen
+5. Blynk geräte code in main.cpp eintragen
 5. Fachnummer eintragen
