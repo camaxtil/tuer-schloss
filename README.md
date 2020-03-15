@@ -1,6 +1,6 @@
-# tuer-schloss
+# Tür Schloss
 
-
+# Anleitung
 1. RFID Karte mit Code Bespielen 
     rfid_write_personal_data.cpp auf ESP Spielen anweisungen im Terminal folgen.
 
